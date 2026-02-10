@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= displayName %> on Agentum</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= displayName %> on Agentum" />
+  <meta property="og:description" content="<%= [entity.title, entity.organization_name, entity.location].filter(Boolean).join(' · ') || 'View profile on Agentum' %>" />
+  <% if (avatarSrc) { %>
+  <meta property="og:image" content="<%= avatarSrc %>" />
+  <% } %>
+  <meta property="og:url" content="<%= canonicalUrl %>" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Agentum" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="<%= displayName %> on Agentum" />
+  <meta name="twitter:description" content="<%= [entity.title, entity.organization_name, entity.location].filter(Boolean).join(' · ') || 'View profile on Agentum' %>" />
+  <% if (avatarSrc) { %>
+  <meta name="twitter:image" content="<%= avatarSrc %>" />
+  <% } %>
+
+  <!-- Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-argument=<%= deepLink %>">
+
+  <link rel="canonical" href="<%= canonicalUrl %>" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="#7C3AED"/>
+          <text x="16" y="21" text-anchor="middle" fill="white" font-size="16" font-weight="bold" font-family="system-ui">A</text>
+        </svg>
+        <span class="logo-text">Agentum</span>
+      </div>
+
+      <div class="profile">
+        <% if (avatarSrc) { %>
+        <img class="avatar" src="<%= avatarSrc %>" alt="<%= displayName %>" />
+        <% } else { %>
+        <div class="avatar avatar-placeholder">
+          <%= displayName.charAt(0).toUpperCase() %>
+        </div>
+        <% } %>
+
+        <h1 class="name"><%= displayName %></h1>
+
+        <% if (entity.username) { %>
+        <p class="username">@<%= entity.username %></p>
+        <% } %>
+
+        <% if (entity.title || entity.organization_name) { %>
+        <p class="subtitle">
+          <%= [entity.title, entity.organization_name].filter(Boolean).join(' at ') %>
+        </p>
+        <% } %>
+
+        <% if (entity.location) { %>
+        <p class="location">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <%= entity.location %>
+        </p>
+        <% } %>
+      </div>
+
+      <button class="cta-button" onclick="openInApp()">Open in Agentum</button>
+
+      <p class="footer-text">
+        Don't have the app? <a href="<%= appStoreUrl %>">Download Agentum</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function openInApp() {
+      window.location = '<%= deepLink %>';
+      setTimeout(function() {
+        window.location = '<%= appStoreUrl %>';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

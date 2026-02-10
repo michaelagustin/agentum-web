@@ -1,0 +1,17 @@
+{
+  "name": "agentum-web",
+  "version": "1.0.0",
+  "description": "Agentum Universal Links server with web preview pages",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "ejs": "^3.1.10"
+  }
+}
