@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://btcsqdatmuwbqobiilfb.supabase.co';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 const APP_STORE_URL = process.env.APP_STORE_URL || 'https://apps.apple.com/app/agentum';
+const TESTFLIGHT_URL = process.env.TESTFLIGHT_URL || 'https://testflight.apple.com/join/REPLACE_ME';
 const TEAM_ID = 'P664VA8R4Y';
 const BUNDLE_ID = 'vc.cerebro.Agentum';
 
@@ -90,7 +91,8 @@ app.get('/entity/@:username', async (req, res) => {
       return res.status(404).render('not-found', {
         message: 'Profile not found',
         baseUrl,
-        appStoreUrl: APP_STORE_URL
+        appStoreUrl: APP_STORE_URL,
+        testflightUrl: TESTFLIGHT_URL
       });
     }
 
@@ -104,7 +106,8 @@ app.get('/entity/@:username', async (req, res) => {
       avatarSrc: avatarUrl(entity.avatar),
       deepLink: `agentum://entity/@${entity.username}`,
       canonicalUrl: `${baseUrl}/entity/@${entity.username}`,
-      appStoreUrl: APP_STORE_URL
+      appStoreUrl: APP_STORE_URL,
+      testflightUrl: TESTFLIGHT_URL
     });
   } catch (err) {
     console.error('Error fetching entity:', err);
@@ -131,7 +134,8 @@ app.get('/event/:eventId', async (req, res) => {
       return res.status(404).render('not-found', {
         message: 'Event not found',
         baseUrl,
-        appStoreUrl: APP_STORE_URL
+        appStoreUrl: APP_STORE_URL,
+        testflightUrl: TESTFLIGHT_URL
       });
     }
 
@@ -147,6 +151,7 @@ app.get('/event/:eventId', async (req, res) => {
       deepLink: `agentum://event/${event.id}`,
       canonicalUrl: `${baseUrl}/event/${event.id}`,
       appStoreUrl: APP_STORE_URL,
+      testflightUrl: TESTFLIGHT_URL,
       description: event.description
         ? event.description.substring(0, 200) + (event.description.length > 200 ? '...' : '')
         : ''

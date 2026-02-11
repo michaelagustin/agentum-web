@@ -71,17 +71,26 @@
 
       <button class="cta-button" onclick="openInApp()">Open in Agentum</button>
 
+      <a class="testflight-button" href="<%= testflightUrl %>">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Get Agentum on TestFlight
+      </a>
+
       <p class="footer-text">
-        Don't have the app? <a href="<%= appStoreUrl %>">Download Agentum</a>
+        Don't have the app yet? Install via <a href="<%= testflightUrl %>">TestFlight</a> and tap this link again.
       </p>
     </div>
   </div>
 
   <script>
     function openInApp() {
+      // Try to open the app via custom scheme
       window.location = '<%= deepLink %>';
+      // If the app isn't installed, the scheme redirect silently fails.
+      // After a short delay, redirect to TestFlight.
       setTimeout(function() {
-        window.location = '<%= appStoreUrl %>';
+        // If we're still on this page, the app didn't open — send to TestFlight
+        window.location = '<%= testflightUrl %>';
       }, 1500);
     }
   </script>
